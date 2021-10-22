@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Container,
   Menu,
@@ -9,8 +9,13 @@ import {
   Dropdown,
 } from "semantic-ui-react";
 import Link from "next/link";
+import BasicModal from "../../Modal/BasicModal";
 
 export default function MenuWeb() {
+  const [showModal, setShowModal] = useState(false);
+
+  const onShowModal = () => setShowModal(true);
+
   return (
     <div className="menu">
       <Container>
@@ -19,10 +24,18 @@ export default function MenuWeb() {
             <MenuProduct />
           </Grid.Column>
           <Grid.Column className="menu__right" width={10}>
-            <MenuOptions />
+            <MenuOptions onShowModal={onShowModal} />
           </Grid.Column>
         </Grid>
       </Container>
+      <BasicModal
+        show={showModal}
+        setShow={setShowModal}
+        title="Inicia sesión"
+        size="small"
+      >
+        <h2>contenido del Modal</h2>
+      </BasicModal>
     </div>
   );
 }
@@ -65,10 +78,12 @@ function MenuProduct() {
   );
 }
 
-function MenuOptions() {
+function MenuOptions(props) {
+  const { onShowModal } = props;
+
   return (
     <Menu>
-      <MenuItem>
+      <MenuItem onClick={onShowModal}>
         <Icon name="user outline" />
         Mi cuenta
       </MenuItem>

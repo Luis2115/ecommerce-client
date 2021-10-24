@@ -10,11 +10,14 @@ import {
 } from "semantic-ui-react";
 import Link from "next/link";
 import BasicModal from "../../Modal/BasicModal";
+import Auth from "../../Auth/Auth";
 
 export default function MenuWeb() {
   const [showModal, setShowModal] = useState(false);
+  const [titleModal, settitleModal] = useState("Inicia Sesión");
 
   const onShowModal = () => setShowModal(true);
+  const onCloseModal = () => setShowModal(false);
 
   return (
     <div className="menu">
@@ -31,10 +34,10 @@ export default function MenuWeb() {
       <BasicModal
         show={showModal}
         setShow={setShowModal}
-        title="Inicia sesión"
+        title={titleModal}
         size="small"
       >
-        <h2>contenido del Modal</h2>
+        <Auth onCloseModal={onCloseModal} settitleModal={settitleModal} />
       </BasicModal>
     </div>
   );

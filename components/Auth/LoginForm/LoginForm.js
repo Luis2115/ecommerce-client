@@ -3,12 +3,15 @@ import { Form, Button } from "semantic-ui-react";
 import { Formik, FormikContext, useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
+import useAuth from "../../../hooks/useAuth";
 import { loginApi } from "../../../api/user";
 
 export default function LoginForm(props) {
   const { showRegisterForm, onCloseModal } = props;
 
   const [loading, setLoading] = useState(false);
+
+  const { login } = useAuth();
 
   //hacemos uso del hooks de formit para validar el formulario
   const formik = useFormik({
@@ -18,7 +21,7 @@ export default function LoginForm(props) {
       setLoading(true);
       const response = await loginApi(formData);
       if (response?.jwt) {
-        console.log(response);
+        login(response.jwt);
         onCloseModal();
       } else {
         toast.error("El email o la contraseña son incorrectos");

@@ -1,15 +1,26 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { ToastContainer } from "react-toastify";
 import jwtDecode from "jwt-decode";
 import AuthContext from "../context/AuthContext";
-import { setToken } from "../api/token";
+import { setToken, getToken } from "../api/token";
 import "../scss/global.scss";
 import "semantic-ui-css/semantic.min.css";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function MyApp({ Component, pageProps }) {
   const [auth, setAuth] = useState(undefined);
-  console.log(auth);
+  const [reloadUser, setReloadUser] = useState(false);
+
+  //verificamos si el usuario esta logeado por medio del token que retorna la funcion getToken
+  useEffect(() => {
+    const token = getToken();
+    if (token) {
+      setAuth({ token, idUser: jwtDecode(token).id });
+    } else {
+      setAuth(null);
+    }
+    setReloadUser(false);
+  }, [reloadUser]);
 
   const login = (token) => {
     //guardamos el token en el localStorage mediante la funcion setToken
@@ -23,10 +34,13 @@ export default function MyApp({ Component, pageProps }) {
       auth,
       login,
       logout: () => null,
-      setReloadUser: () => null,
+      setReloadUser,
     }),
-    []
+    [auth]
   );
+
+  //Comprobamos si el useEffect verifico al usuario logeado
+  if (auth === undefined) return null;
 
   //se engloba a todo el proyecto con el contexto creado y se le pasa los valores de que contenga authData
   return (

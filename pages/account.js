@@ -4,6 +4,9 @@ import BasicLayout from "../layouts/BasicLayout";
 import { getMeApi } from "../api/user";
 import useAuth from "../hooks/useAuth";
 import ChangeNameForm from "../components/Account/ChangeNaneForm";
+import ChangeEmailForm from "../components/Account/ChangeEmailForm";
+import ChangePhoneForm from "../components/Account/ChangePhoneForm";
+import ChangePasswordForm from "../components/Account/ChangePasswordForm/ChangePasswordForm";
 
 export default function account() {
   const [user, setUser] = useState(undefined);
@@ -40,13 +43,24 @@ function Configuration(props) {
   const { user, logout, setReloadUser } = props;
   return (
     <div className="account__configuration">
-      <div className="title">Configuracion</div>
+      <div className="title">Configuración</div>
       <div className="data">
         <ChangeNameForm
           user={user}
           logout={logout}
           setReloadUser={setReloadUser} //lo volemos a mandar hasta el formulario donde lo requerimos
         />
+        <ChangeEmailForm
+          user={user}
+          logout={logout}
+          setReloadUser={setReloadUser}
+        />
+        <ChangePhoneForm
+          user={user}
+          logout={logout}
+          setReloadUser={setReloadUser}
+        />
+        <ChangePasswordForm user={user} logout={logout} />
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ import ChangeNameForm from "../components/Account/ChangeNaneForm";
 
 export default function account() {
   const [user, setUser] = useState(undefined);
-  const { auth, logout } = useAuth();
+  const { auth, logout, setReloadUser } = useAuth();
   const router = useRouter();
 
   //carga los datos, en caso el usuario inicie sesion
@@ -27,18 +27,26 @@ export default function account() {
 
   return (
     <BasicLayout className="account">
-      <Configuration user={user} />
+      <Configuration
+        user={user}
+        logout={logout}
+        setReloadUser={setReloadUser} //mandamos el estado cuando haya cambios en el menu del usuario
+      />
     </BasicLayout>
   );
 }
 
 function Configuration(props) {
-  const { user } = props;
+  const { user, logout, setReloadUser } = props;
   return (
     <div className="account__configuration">
       <div className="title">Configuracion</div>
       <div className="data">
-        <ChangeNameForm user={user} />
+        <ChangeNameForm
+          user={user}
+          logout={logout}
+          setReloadUser={setReloadUser} //lo volemos a mandar hasta el formulario donde lo requerimos
+        />
       </div>
     </div>
   );

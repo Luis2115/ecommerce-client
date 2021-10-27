@@ -46,7 +46,7 @@ export default function ChangeNameForm(props) {
           />
         </Form.Group>
         <Button className="submit" type="submit" loading={loading}>
-          Actualizar usuario
+          Actualizar
         </Button>
       </Form>
     </div>

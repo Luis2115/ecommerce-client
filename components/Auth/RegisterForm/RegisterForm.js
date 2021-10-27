@@ -48,6 +48,13 @@ export default function RegisterForm(props) {
         error={formik.errors.lastname}
       />
       <Form.Input
+        name="phone"
+        type="text"
+        placeholder="Numero Celular"
+        onChange={formik.handleChange}
+        error={formik.errors.phone}
+      />
+      <Form.Input
         name="username"
         type="text"
         placeholder="Nombre de Usuario"
@@ -82,15 +89,27 @@ export default function RegisterForm(props) {
 
 //Valores iniciales de la validacion
 function initialValues() {
-  return { name: "", lastname: "", username: "", email: "", password: "" };
+  return {
+    name: "",
+    lastname: "",
+    phone: "",
+    username: "",
+    email: "",
+    password: "",
+  };
 }
 
 //Creando las validaciones
 function validationSchema() {
+  const phoneRegExp =
+    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
   const user = "El Nombre de usuario es obligatorio";
   return {
     name: Yup.string().required(true),
     lastname: Yup.string().required(true),
+    phone: Yup.string()
+      .matches(phoneRegExp, "El numero de celular no es valido")
+      .required(true),
     email: Yup.string().email(true).required(true),
     username: Yup.string().required(user),
     password: Yup.string().required(true),

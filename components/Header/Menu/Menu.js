@@ -8,12 +8,16 @@ import {
   Dropdown,
 } from "semantic-ui-react";
 import Link from "next/link";
+import { map } from "lodash";
 import BasicModal from "../../Modal/BasicModal";
 import Auth from "../../Auth/Auth";
 import useAuth from "../../../hooks/useAuth";
 import { getMeApi } from "../../../api/user";
+import { getCategoryApi } from "../../../api/category";
 
 export default function MenuWeb() {
+  //creamos un estado de tipo array para todas categorias
+  const [category, setCategory] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [titleModal, settitleModal] = useState("Inicia Sesión");
   const [user, setUser] = useState(undefined);
@@ -27,6 +31,14 @@ export default function MenuWeb() {
     })();
   }, [auth]);
 
+  //obteniendo las categorias almacenadas en la base de datos y la guardamos en un estado
+  useEffect(() => {
+    (async () => {
+      const response = await getCategoryApi();
+      setCategory(response || []);
+    })();
+  }, []);
+
   const onShowModal = () => setShowModal(true);
   const onCloseModal = () => setShowModal(false);
 
@@ -35,7 +47,7 @@ export default function MenuWeb() {
       <Container>
         <Grid>
           <Grid.Column className="menu__left" width={6}>
-            <MenuProduct />
+            <MenuProduct category={category} />
           </Grid.Column>
           <Grid.Column className="menu__right" width={10}>
             {user !== undefined && (
@@ -60,36 +72,28 @@ export default function MenuWeb() {
   );
 }
 
-function MenuProduct() {
+function MenuProduct(props) {
+  const { category } = props;
+  // const index = category[11];
+  // console.log(index);
   return (
     <Menu>
       <Dropdown text="Categorias" pointing className="link item">
         <Dropdown.Menu>
           <Dropdown.Item className="drop">
-            <Link href="/cuadro">
-              <Menu.Item as="a">Cuadro</Menu.Item>
-            </Link>
-          </Dropdown.Item>
-          <Dropdown.Item className="drop">
-            <Link href="/cuadro">
-              <Menu.Item as="a">Cuadro</Menu.Item>
-            </Link>
-          </Dropdown.Item>
-          <Dropdown.Item className="drop">
-            <Link href="/cuadro">
-              <Menu.Item as="a">Cuadro</Menu.Item>
-            </Link>
-          </Dropdown.Item>
-          <Dropdown.Item className="drop">
-            <Link href="/cuadro">
-              <Menu.Item as="a">Cuadro</Menu.Item>
-            </Link>
+            {map(category, (category) => (
+              <Link href={`/products/${category.url}`} key={category._id}>
+                <Menu.Item as="a" name={category.url}>
+                  {category.title}
+                </Menu.Item>
+              </Link>
+            ))}
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
 
-      <Link href="/promocion">
-        <Menu.Item as="a">Promocion</Menu.Item>
+      <Link href="/products/promociones">
+        <Menu.Item as="a">Promociones</Menu.Item>
       </Link>
     </Menu>
   );

@@ -40,3 +40,30 @@ export async function getTotalCategoryApi(category) {
     return null;
   }
 }
+
+export async function getProductsPromotionApi(promotion, limit, start) {
+  try {
+    const limitItems = `_limit=${limit}`;
+    const sortItems = `_sort=uploadDate:asc`;
+    const startItems = `_start=${start}`;
+    const url = `${BASE_PATH}/products?promotion=${promotion}&${limitItems}&${sortItems}&${startItems}`;
+    const response = await fetch(url);
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
+
+export async function getTotalProductsPromotionApi(promotion) {
+  try {
+    const url = `${BASE_PATH}/products/count?promotion=${promotion}`;
+    const response = await fetch(url);
+    const result = response.json();
+    return result;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}

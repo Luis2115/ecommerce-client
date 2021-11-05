@@ -3,7 +3,12 @@ import { Loader } from "semantic-ui-react";
 import { useRouter } from "next/router";
 import { size } from "lodash";
 import BasicLayout from "../../layouts/BasicLayout";
-import { getProductsCategoryApi, getTotalCategoryApi } from "../../api/product";
+import {
+  getProductsCategoryApi,
+  getTotalCategoryApi,
+  getProductsPromotionApi,
+  getTotalProductsPromotionApi,
+} from "../../api/product";
 import ListProducts from "../../components/ListProducts";
 import Pagination from "../../components/Pagination/Pagination";
 
@@ -14,6 +19,8 @@ export default function Category() {
   const { query } = useRouter();
   const [products, setProducts] = useState(null);
   const [totalProducts, setTotalProducts] = useState(null);
+  const [productsPromotion, setProductsPromotion] = useState(null);
+  const [totalProductsPromotion, setTotalProductsPromotion] = useState(null);
 
   //funcion para saber a partir de que producto mostrar en la paginacion
   const getStartItem = () => {
@@ -47,8 +54,54 @@ export default function Category() {
     })();
   }, [query]);
 
+  //efecto que permitira renderizar los productos de cada promocion
+  useEffect(() => {
+    (async () => {
+      const response = await getProductsPromotionApi(
+        true,
+        limitPerPage,
+        getStartItem()
+      );
+      //llenamos el array de productos en promocion para renderizar lo
+      setProductsPromotion(response);
+      // console.log(query.category);
+      // console.log(productsPromotion);
+    })();
+  }, [query]);
+
+  //efecto que nos traera el total de productos por promociones
+  useEffect(() => {
+    (async () => {
+      const response = await getTotalProductsPromotionApi(true);
+      //console.log(response);
+      setTotalProductsPromotion(response);
+    })();
+  }, [query]);
+
   return (
     <BasicLayout className="category">
+      {query.category === "promociones" ? (
+        <ProductPromotion
+          productsPromotion={productsPromotion}
+          totalProductsPromotion={totalProductsPromotion}
+          query={query}
+        />
+      ) : (
+        <ProductNormal
+          products={products}
+          totalProducts={totalProducts}
+          query={query}
+        />
+      )}
+    </BasicLayout>
+  );
+}
+
+//Funcion para renderizar los productos por categorias
+function ProductNormal(props) {
+  const { products, totalProducts, query } = props;
+  return (
+    <>
       {!products && <Loader active>Cargando Productos</Loader>}
       {products && size(products) === 0 && (
         <div>
@@ -63,6 +116,33 @@ export default function Category() {
           limitPerPage={limitPerPage}
         />
       ) : null}
-    </BasicLayout>
+    </>
+  );
+}
+
+//funcion para renderizar los productos por promociones
+function ProductPromotion(props) {
+  const { productsPromotion, totalProductsPromotion, query } = props;
+  return (
+    <>
+      {!productsPromotion && (
+        <Loader active>Cargando Productos en Promocion</Loader>
+      )}
+      {productsPromotion && size(productsPromotion) === 0 && (
+        <div>
+          <h3>No hay productos</h3>
+        </div>
+      )}
+      {size(productsPromotion) > 0 && (
+        <ListProducts products={productsPromotion} />
+      )}
+      {totalProductsPromotion ? (
+        <Pagination
+          totalProducts={totalProductsPromotion}
+          page={query.page ? parseInt(query.page) : 1}
+          limitPerPage={limitPerPage}
+        />
+      ) : null}
+    </>
   );
 }

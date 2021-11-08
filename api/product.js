@@ -79,3 +79,15 @@ export async function getProductByUrl(path) {
     return null;
   }
 }
+
+export async function searchProductApi(title) {
+  try {
+    const url = `${BASE_PATH}/products?_q=${title}`;
+    const response = await fetch(url);
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.log(errr);
+    return null;
+  }
+}

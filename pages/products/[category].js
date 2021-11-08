@@ -130,7 +130,7 @@ function ProductPromotion(props) {
       )}
       {productsPromotion && size(productsPromotion) === 0 && (
         <div>
-          <h3>No hay productos</h3>
+          <h3>No hay productos en Promocion</h3>
         </div>
       )}
       {size(productsPromotion) > 0 && (

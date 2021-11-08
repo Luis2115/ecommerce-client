@@ -112,12 +112,6 @@ function MenuOptions(props) {
               Mis Pedidos
             </Menu.Item>
           </Link>
-          <Link href="/wishlist">
-            <Menu.Item as="a">
-              <Icon name="heart outline" />
-              Favoritos
-            </Menu.Item>
-          </Link>
           <Link href="/account">
             <Menu.Item as="a">
               <Icon name="user outline" />

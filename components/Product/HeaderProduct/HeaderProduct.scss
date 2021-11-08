@@ -1,0 +1,80 @@
+.header-product {
+}
+.header-product {
+  &.ui.grid {
+    margin: 0;
+  }
+
+  &__title {
+    position: relative;
+    background-color: $background-dark-absolute;
+    padding: 10px 0;
+    color: $font-light;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  &__available {
+    text-align: center;
+    color: $primary;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 10px 0;
+  }
+
+  &__sumary {
+    background-color: $background-light;
+    padding: 20px;
+    font-size: 14px;
+    align-items: center;
+
+    > p {
+      margin: 10px;
+
+      &:first-of-type {
+        font-size: 20px;
+      }
+
+      &:last-of-type {
+        font-size: 18px;
+      }
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background-color: $background-dark-absolute;
+    color: $font-light;
+    padding: 15px 20px;
+    margin-top: 15px;
+
+    &-btn.ui.button {
+      position: relative;
+      width: 200px;
+      background-color: $primary !important;
+      color: $font-light !important;
+      font-size: 18px;
+      padding: 15px 0;
+      transition: 0.2s;
+
+      &:hover {
+        left: -10px;
+      }
+
+      &:after {
+        position: absolute;
+        top: 8px;
+        right: -15px;
+        width: 32px;
+        height: 32px;
+        border-radius: 10px 4px 10px 0;
+        -ms-transform: rotate(45deg) skew(15deg, 15deg);
+        transform: rotate(45deg) skew(15deg, 15deg);
+        background-color: $primary;
+        content: "";
+      }
+    }
+  }
+}

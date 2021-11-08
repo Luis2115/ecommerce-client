@@ -5,7 +5,7 @@ import { size } from "lodash";
 export default function HeaderProduct(props) {
   const { product } = props;
   const { title, poster } = product;
-  console.log(product);
+  //console.log(product);
 
   return (
     <Grid className="header-product">

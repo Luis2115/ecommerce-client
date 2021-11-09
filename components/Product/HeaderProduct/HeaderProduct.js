@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Grid, Image, Icon, Button } from "semantic-ui-react";
 import { size } from "lodash";
+import useCart from "../../../hooks/useCart";
 
 export default function HeaderProduct(props) {
   const { product } = props;
@@ -21,7 +22,8 @@ export default function HeaderProduct(props) {
 
 function Info(props) {
   const { product } = props;
-  const { title, made, unit } = product;
+  const { title, made, unit, url } = product;
+  const { addProductCart } = useCart();
 
   return (
     <>
@@ -34,7 +36,12 @@ function Info(props) {
         <p>Presentación: {unit}</p>
       </div>
       <div className="header-product__actions">
-        <Button className="header-product__actions-btn">Pre-Compra</Button>
+        <Button
+          className="header-product__actions-btn"
+          onClick={() => addProductCart(url)}
+        >
+          Pre-Compra
+        </Button>
       </div>
     </>
   );

@@ -8,6 +8,7 @@
 @import "../pages/account.scss";
 @import "../pages/products/category.scss";
 @import "../pages/search.scss";
+@import "../pages/cart.scss";
 
 //Components
 @import "../components/Header/Header.scss";
@@ -23,3 +24,4 @@
 @import "../components/Pagination/Pagination.scss";
 @import "../components/Product/HeaderProduct/HeaderProduct.scss";
 @import "../components/Product/TabsProduct/TabsProduct.scss";
+@import "../components/Cart/SumaryCart/SumaryCart.scss";

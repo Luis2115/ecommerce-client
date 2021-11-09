@@ -12,6 +12,7 @@ import { map } from "lodash";
 import BasicModal from "../../Modal/BasicModal";
 import Auth from "../../Auth/Auth";
 import useAuth from "../../../hooks/useAuth";
+import useCart from "../../../hooks/useCart";
 import { getMeApi } from "../../../api/user";
 import { getCategoryApi } from "../../../api/category";
 
@@ -101,6 +102,7 @@ function MenuProduct(props) {
 
 function MenuOptions(props) {
   const { onShowModal, user, logout } = props;
+  const { productsCart } = useCart();
 
   return (
     <Menu>
@@ -121,6 +123,9 @@ function MenuOptions(props) {
           <Link href="/cart">
             <Menu.Item as="a" className="m-0">
               <Icon name="cart" />
+              <Label color="red" floating circular>
+                {productsCart}
+              </Label>
             </Menu.Item>
           </Link>
           <Menu.Item className="m-0" onClick={logout}>

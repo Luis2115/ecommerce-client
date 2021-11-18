@@ -1,14 +1,28 @@
 import React, { useState, useEffect } from "react";
+import { Button } from "semantic-ui-react";
+import router, { useRouter } from "next/router";
 import BasicLayout from "../layouts/BasicLayout";
 import { getProductByUrl } from "../api/product";
+import { getMeApi } from "../api/user";
 import useCart from "../hooks/useCart";
+import useAuth from "../hooks/useAuth";
 import SumaryCart from "../components/Cart/SumaryCart";
+import { createOrderApi, removeAllProductsCart } from "../api/cart";
+import { toast } from "react-toastify";
+import { size } from "lodash";
 
 export default function Cart() {
-  const { getProductCart } = useCart();
+  const { getProductCart, removeAllProductCart } = useCart();
+  const { auth, logout } = useAuth();
+  //console.log(idUser);
   const products = getProductCart();
+  const router = useRouter();
 
-  return !products ? <EmptyCart /> : <FullCart products={products} />;
+  return !products ? (
+    <EmptyCart />
+  ) : (
+    <FullCart products={products} auth={auth} logout={logout} />
+  );
 }
 
 function EmptyCart() {
@@ -20,10 +34,20 @@ function EmptyCart() {
 }
 
 function FullCart(props) {
-  const { products } = props;
+  const { products, auth, logout } = props;
+  const [loading, setLoading] = useState(false);
+  const [infoUser, setInfoUser] = useState(undefined);
   const [productsData, setProductsData] = useState(null);
   const [reloadCart, setReloadCart] = useState(false);
   //   console.log(productsData);
+
+  //carga los datos, en caso el usuario inicie sesion
+  useEffect(() => {
+    (async () => {
+      const response = await getMeApi(logout);
+      setInfoUser(response || null);
+    })();
+  }, [auth]);
 
   useEffect(() => {
     (async () => {
@@ -41,9 +65,36 @@ function FullCart(props) {
     setReloadCart(false);
   }, [reloadCart]);
 
+  const handleClick = async (event) => {
+    event.preventDefault();
+    setLoading(true);
+
+    const response = await createOrderApi(
+      productsData,
+      auth.idUser,
+      infoUser.phone,
+      logout
+    );
+
+    if (size(response) > 0) {
+      toast.success("Orden creada");
+      removeAllProductsCart();
+      router.push("/orders");
+    } else {
+      toast.error("Error al generar la orden");
+    }
+
+    setLoading(false);
+  };
+
   return (
     <BasicLayout className="cart">
       <SumaryCart products={productsData} setReloadCart={setReloadCart} />
+      {productsData && (
+        <Button onClick={handleClick} loading={loading}>
+          Realizar Consulta
+        </Button>
+      )}
     </BasicLayout>
   );
 }

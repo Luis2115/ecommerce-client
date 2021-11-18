@@ -4,3 +4,17 @@
     padding: 50px;
   }
 }
+
+.cart {
+  text-align: center;
+  .ui.button {
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    margin-top: 15px;
+    padding: 15px;
+    background-color: $primary;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+    color: $font-light;
+  }
+}

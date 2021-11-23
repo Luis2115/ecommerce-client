@@ -64,6 +64,47 @@ export function removeProductCart(product) {
 
 export async function createOrderApi(products, idUser, phone, logout) {
   try {
+    const prod = [];
+    for await (const product of products) {
+      const prod1 = product;
+      delete prod1._id;
+      delete prod1.id;
+      delete prod1.updatedAt;
+      delete prod1.uploadDate;
+      delete prod1.promotion;
+      delete prod1.url;
+      delete prod1.unit;
+      delete prod1.category.published_at;
+      delete prod1.category.position;
+      delete prod1.category.updatedAt;
+      delete prod1.category.url;
+      delete prod1.category.__v;
+      delete prod1.category._id;
+      delete prod1.category.id;
+      delete prod1.category.createdAt;
+      delete prod1.poster.size;
+      delete prod1.poster.ext;
+      delete prod1.poster.width;
+      delete prod1.poster.caption;
+      delete prod1.poster.height;
+      delete prod1.poster.related;
+      delete prod1.poster.name;
+      delete prod1.poster.hash;
+      delete prod1.poster.updatedAt;
+      delete prod1.poster.provider;
+      delete prod1.poster.mime;
+      delete prod1.poster.__v;
+      delete prod1.poster._id;
+      delete prod1.poster.alternativeText;
+      delete prod1.poster.id;
+      delete prod1.poster.createdAt;
+      delete prod1.poster.formats;
+
+      prod.push(prod1);
+    }
+
+    // console.log(prod);
+
     const url = `${BASE_PATH}/orders`;
     const params = {
       method: "POST",

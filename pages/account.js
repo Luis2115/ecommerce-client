@@ -9,7 +9,7 @@ import ChangePhoneForm from "../components/Account/ChangePhoneForm";
 import ChangePasswordForm from "../components/Account/ChangePasswordForm/ChangePasswordForm";
 import Seo from "../components/Seo";
 
-export default function account() {
+export default function Account() {
   const [user, setUser] = useState(undefined);
   const { auth, logout, setReloadUser } = useAuth();
   const router = useRouter();

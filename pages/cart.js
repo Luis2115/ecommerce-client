@@ -89,7 +89,11 @@ function FullCart(props) {
 
   return (
     <BasicLayout className="cart">
-      <SumaryCart products={productsData} setReloadCart={setReloadCart} />
+      <SumaryCart
+        products={productsData}
+        setReloadCart={setReloadCart}
+        setProductsData={setProductsData}
+      />
       {productsData && (
         <Button onClick={handleClick} loading={loading}>
           Realizar Consulta

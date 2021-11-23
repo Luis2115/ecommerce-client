@@ -27,7 +27,7 @@ export default function SumaryCart(props) {
           </Table.Header>
           <Table.Body>
             {map(products, (product) => (
-              <Table.Row key={product.id} className="summary-cart__product">
+              <Table.Row key={product.title} className="summary-cart__product">
                 <Table.Cell>
                   <Icon
                     name="close"

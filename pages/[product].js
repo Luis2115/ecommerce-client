@@ -4,6 +4,7 @@ import BasicLayout from "../layouts/BasicLayout";
 import { getProductByUrl } from "../api/product";
 import HeaderProduct from "../components/Product/HeaderProduct";
 import TabsProduct from "../components/Product/TabsProduct";
+import Seo from "../components/Seo";
 
 export default function Product() {
   const [product, setProduct] = useState(null);
@@ -22,6 +23,10 @@ export default function Product() {
 
   return (
     <BasicLayout classname="product">
+      <Seo
+        title={product.title}
+        description="Pagina que contiene la información del producto"
+      />
       <HeaderProduct product={product} />
       <TabsProduct product={product} />
     </BasicLayout>

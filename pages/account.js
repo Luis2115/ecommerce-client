@@ -7,6 +7,7 @@ import ChangeNameForm from "../components/Account/ChangeNaneForm";
 import ChangeEmailForm from "../components/Account/ChangeEmailForm";
 import ChangePhoneForm from "../components/Account/ChangePhoneForm";
 import ChangePasswordForm from "../components/Account/ChangePasswordForm/ChangePasswordForm";
+import Seo from "../components/Seo";
 
 export default function account() {
   const [user, setUser] = useState(undefined);
@@ -30,6 +31,10 @@ export default function account() {
 
   return (
     <BasicLayout className="account">
+      <Seo
+        title={`Información Usuario: ${user.name}`}
+        description="Pagina para realizar cambios en la informacion del usuario"
+      />
       <Configuration
         user={user}
         logout={logout}

@@ -5,6 +5,7 @@ import { size } from "lodash";
 import BasicLayout from "../layouts/BasicLayout";
 import { searchProductApi } from "../api/product";
 import ListProducts from "../components/ListProducts";
+import Seo from "../components/Seo";
 
 export default function search() {
   const [products, setProducts] = useState(null);
@@ -29,6 +30,10 @@ export default function search() {
 
   return (
     <BasicLayout className="search">
+      <Seo
+        title={`Buscando: ${query.query}`}
+        description="Pagina del buscador de la tienda"
+      />
       {!products && <Loader active>Cargando Productos</Loader>}
       {products && size(products) === 0 && (
         <div>

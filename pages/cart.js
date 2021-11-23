@@ -10,6 +10,7 @@ import SumaryCart from "../components/Cart/SumaryCart";
 import { createOrderApi, removeAllProductsCart } from "../api/cart";
 import { toast } from "react-toastify";
 import { size } from "lodash";
+import Seo from "../components/Seo";
 
 export default function Cart() {
   const { getProductCart, removeAllProductCart } = useCart();
@@ -28,6 +29,7 @@ export default function Cart() {
 function EmptyCart() {
   return (
     <BasicLayout className="empty-cart">
+      <Seo title="Carrito Vacio" />
       <h2>No hay productos en el carrito</h2>
     </BasicLayout>
   );
@@ -89,6 +91,7 @@ function FullCart(props) {
 
   return (
     <BasicLayout className="cart">
+      <Seo title="Items del Carrito" />
       <SumaryCart
         products={productsData}
         setReloadCart={setReloadCart}

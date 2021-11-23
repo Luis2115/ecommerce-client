@@ -11,6 +11,7 @@ import {
 } from "../../api/product";
 import ListProducts from "../../components/ListProducts";
 import Pagination from "../../components/Pagination/Pagination";
+import Seo from "../../components/Seo";
 
 //limite de productos por pagina
 const limitPerPage = 20;
@@ -80,6 +81,10 @@ export default function Category() {
 
   return (
     <BasicLayout className="category">
+      <Seo
+        title={`Categoria: ${query.category}`}
+        description="Pagina de las categorias de cada producto"
+      />
       {query.category === "promociones" ? (
         <ProductPromotion
           productsPromotion={productsPromotion}

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Icon, Image } from "semantic-ui-react";
+import { Icon, Image, Grid } from "semantic-ui-react";
 import { size, map } from "lodash";
 import Link from "next/link";
 import moment from "moment";
@@ -13,35 +13,53 @@ export default function Order(props) {
 
   return (
     <>
-      <div className="order">
-        <div className="order__info">
-          <div className="order__info-data">
-            <div>
-              <h2>Orden Creada</h2>
-            </div>
-          </div>
-          <div className="order__other">
-            <p className="order__other-date">
-              {moment(createdAt).format("L")} - {moment(createdAt).format("LT")}
-            </p>
-            <p className="order__other-status">
-              Estado: {estado === false ? "Hola" : "que tal"}
-            </p>
-            <Icon
-              name="eye"
-              circular
-              link
-              onClick={() => setShowModal(true)}
-            ></Icon>
-          </div>
-        </div>
-      </div>
+      <Grid className="order">
+        <Grid.Column mobile={16} tablet={6} computer={5}>
+          <InfoProd />
+        </Grid.Column>
+        <Grid.Column mobile={16} tablet={10} computer={11}>
+          <DetailProd
+            createdAt={createdAt}
+            estado={estado}
+            setShowModal={setShowModal}
+          />
+        </Grid.Column>
+      </Grid>
+
       <ListProductsModal
         showModal={showModal}
         setShowModal={setShowModal}
         products={products}
       />
     </>
+  );
+}
+
+function InfoProd() {
+  return (
+    <div className="order__info">
+      <div className="order__info-data">
+        <div>
+          <h2>Orden Creada</h2>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function DetailProd(props) {
+  const { createdAt, estado, setShowModal } = props;
+
+  return (
+    <div className="order__other">
+      <p className="order__other-date">
+        {moment(createdAt).format("L")} - {moment(createdAt).format("LT")}
+      </p>
+      <p className="order__other-status">
+        Estado: {estado === false ? "Hola" : "que tal"}
+      </p>
+      <Icon name="eye" circular link onClick={() => setShowModal(true)}></Icon>
+    </div>
   );
 }
 

@@ -78,7 +78,7 @@ function MenuProduct(props) {
   // const index = category[11];
   // console.log(index);
   return (
-    <Menu>
+    <Menu stackable>
       <Dropdown text="Categorias" pointing className="link item">
         <Dropdown.Menu>
           <Dropdown.Item className="drop">
@@ -105,7 +105,7 @@ function MenuOptions(props) {
   const { productsCart } = useCart();
 
   return (
-    <Menu>
+    <Menu stackable>
       {user ? (
         <>
           <Link href="/orders">

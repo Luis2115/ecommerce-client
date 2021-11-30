@@ -7,6 +7,7 @@ export default function Seo(props) {
     <Head>
       <title>{title}</title>
       <meta property="description" content={description} />
+      <link rel="manifest" href="/manifest.json" />
     </Head>
   );
 }

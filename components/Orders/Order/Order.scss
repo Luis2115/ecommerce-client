@@ -48,6 +48,17 @@
 
     &-status {
       margin: 0 15px;
+
+      .ui.tiny.button.acepted {
+        background-color: #2185d0;
+        width: 1.5rem;
+        padding: 10px 5px;
+      }
+      .ui.tiny.button.process {
+        background-color: #db2828;
+        width: 1.5rem;
+        padding: 10px 5px;
+      }
     }
 
     i {

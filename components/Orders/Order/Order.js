@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Icon, Image, Grid } from "semantic-ui-react";
+import { Icon, Image, Grid, Button } from "semantic-ui-react";
 import { size, map } from "lodash";
 import Link from "next/link";
 import moment from "moment";
@@ -56,7 +56,12 @@ function DetailProd(props) {
         {moment(createdAt).format("L")} - {moment(createdAt).format("LT")}
       </p>
       <p className="order__other-status">
-        Estado: {estado === false ? "Hola" : "que tal"}
+        Estado:
+        {estado === false ? (
+          <Button className="process" label="Proceso" size="tiny" />
+        ) : (
+          <Button className="acepted" label="Revisado" size="tiny" />
+        )}
       </p>
       <Icon name="eye" circular link onClick={() => setShowModal(true)}></Icon>
     </div>

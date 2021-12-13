@@ -108,6 +108,16 @@ function MenuOptions(props) {
     <Menu stackable>
       {user ? (
         <>
+          {user.email === "sofia@regenda.com" ? (
+            <Link href="/admin">
+              <Menu.Item as="a">
+                <Icon name="cog" />
+                Gestionar Ordenes
+              </Menu.Item>
+            </Link>
+          ) : (
+            <></>
+          )}
           <Link href="/orders">
             <Menu.Item as="a">
               <Icon name="shopping bag" />

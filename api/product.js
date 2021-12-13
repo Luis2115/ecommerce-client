@@ -1,4 +1,5 @@
 import { BASE_PATH } from "../utils/constants";
+import { authFetch } from "../utils/fetch";
 
 export async function getLastProductApi(limit) {
   try {
@@ -87,7 +88,42 @@ export async function searchProductApi(title) {
     const result = await response.json();
     return result;
   } catch (error) {
-    console.log(errr);
+    console.log(error);
+    return null;
+  }
+}
+
+export async function getProductById(id) {
+  try {
+    const url = `${BASE_PATH}/products/${id}`;
+    const response = await fetch(url);
+    const result = await response.json();
+    return result.stock;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
+
+export async function updateProductStock(idProduct, stock, logout) {
+  try {
+    const response = await getProductById(idProduct);
+    //console.log("stock actual: " + response);
+
+    const sto = response - stock;
+    //console.log("stock resultante: " + sto);
+
+    const url = `${BASE_PATH}/products/${idProduct}`;
+    const params = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ stock: sto }),
+    };
+
+    const result = authFetch(url, params, logout);
+    return result ? result : null;
+  } catch (error) {
+    console.log(error);
     return null;
   }
 }

@@ -1,0 +1,25 @@
+.body-order {
+  padding: 10px;
+
+  .title {
+    width: max-content;
+    background-color: $background-dark-absolute;
+    color: $font-light;
+    padding: 5px 10px;
+    border-radius: 5px 5px 0 0;
+  }
+
+  .list-products {
+    background-color: $background-light;
+    box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    text-align: center;
+
+    .action {
+      padding: 12px 60px;
+      background-color: $primary;
+      color: $font-light;
+      margin: 0;
+    }
+  }
+}

@@ -10,6 +10,7 @@
 @import "../pages/search.scss";
 @import "../pages/cart.scss";
 @import "../pages/orders.scss";
+@import "../pages/order/order.scss";
 
 //Components
 @import "../components/Header/Header.scss";
@@ -27,3 +28,6 @@
 @import "../components/Product/TabsProduct/TabsProduct.scss";
 @import "../components/Cart/SumaryCart/SumaryCart.scss";
 @import "../components/Orders/Order/Order.scss";
+@import "../components/Orders/AdminOrder/AdminOrder.scss";
+@import "../components/Orders/AdminOrder/HeaderOrder/HeaderOrder.scss";
+@import "../components/Orders/AdminOrder/BodyOrder/BodyOrder.scss";

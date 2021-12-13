@@ -55,14 +55,14 @@ function DetailProd(props) {
       <p className="order__other-date">
         {moment(createdAt).format("L")} - {moment(createdAt).format("LT")}
       </p>
-      <p className="order__other-status">
+      <div className="order__other-status">
         Estado:
         {estado === false ? (
           <Button className="process" label="Proceso" size="tiny" />
         ) : (
           <Button className="acepted" label="Revisado" size="tiny" />
         )}
-      </p>
+      </div>
       <Icon name="eye" circular link onClick={() => setShowModal(true)}></Icon>
     </div>
   );

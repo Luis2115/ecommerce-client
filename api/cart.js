@@ -68,7 +68,6 @@ export async function createOrderApi(products, idUser, phone, logout) {
     for await (const product of products) {
       const prod1 = product;
       delete prod1._id;
-      delete prod1.id;
       delete prod1.updatedAt;
       delete prod1.uploadDate;
       delete prod1.promotion;

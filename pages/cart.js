@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "semantic-ui-react";
-import router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import BasicLayout from "../layouts/BasicLayout";
 import { getProductByUrl } from "../api/product";
 import { getMeApi } from "../api/user";
@@ -41,6 +41,8 @@ function FullCart(props) {
   const [infoUser, setInfoUser] = useState(undefined);
   const [productsData, setProductsData] = useState(null);
   const [reloadCart, setReloadCart] = useState(false);
+
+  const router = useRouter();
   //   console.log(productsData);
 
   //carga los datos, en caso el usuario inicie sesion

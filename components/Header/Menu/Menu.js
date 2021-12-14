@@ -6,15 +6,21 @@ import {
   Icon,
   Label,
   Dropdown,
+  Modal,
+  Header,
+  Image,
+  Button,
 } from "semantic-ui-react";
 import Link from "next/link";
 import { map } from "lodash";
+import { useRouter } from "next/router";
 import BasicModal from "../../Modal/BasicModal";
 import Auth from "../../Auth/Auth";
 import useAuth from "../../../hooks/useAuth";
 import useCart from "../../../hooks/useCart";
 import { getMeApi } from "../../../api/user";
 import { getCategoryApi } from "../../../api/category";
+import BasicLayout from "../../../layouts/BasicLayout";
 
 export default function MenuWeb() {
   //creamos un estado de tipo array para todas categorias
@@ -103,6 +109,49 @@ function MenuProduct(props) {
 function MenuOptions(props) {
   const { onShowModal, user, logout } = props;
   const { productsCart } = useCart();
+  const [open, setOpen] = useState(false);
+
+  const router = useRouter();
+
+  if (router.route === "/admin" && user.name != "Ana Sofia") {
+    const onShowModal1 = () => setOpen(true);
+
+    return (
+      <>
+        <BasicModal
+          show={true}
+          setShow={onShowModal1}
+          title="Permisos denegados"
+          size="fullscreen"
+        >
+          <Modal.Content image>
+            <Image
+              size="medium"
+              src="https://regenda-ecommerce.s3.us-east-2.amazonaws.com/static/denied.png"
+              wrapped
+            />
+            <Modal.Description>
+              <p>
+                Los permisos con los que cuenta no son suficientes para estar en
+                este apartado
+              </p>
+            </Modal.Description>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button
+              content="Redirigir al Home"
+              labelPosition="right"
+              icon="checkmark"
+              onClick={() => {
+                router.replace("/");
+              }}
+              positive
+            />
+          </Modal.Actions>
+        </BasicModal>
+      </>
+    );
+  }
 
   return (
     <Menu stackable>
